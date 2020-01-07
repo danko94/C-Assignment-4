@@ -5,17 +5,8 @@
 #include <stdbool.h>
 
 #define ALPHABET_SIZE ((int)26)
-#define ASCII_OFFSET 97
-
 #define MAX_WORD_SIZE 80
-
-
-
 #define ARRAY_SIZE(a) sizeof(a) / sizeof(a[0])
-
-
-
-
 
 
 struct TrieNode
@@ -56,7 +47,7 @@ void insert(struct TrieNode* root, const char* word)
     {
         letter = word[letterPos];
         letter = tolower(letter);
-        if(letter<'a'||letter>'z')
+        if(letter<'a'||letter>'z')      //ignore non letter chars
             continue;
         index = letter-'a';
 
@@ -70,43 +61,18 @@ void insert(struct TrieNode* root, const char* word)
     (runner->freq)++;
 }
 
-bool search(struct TrieNode* root, const char* word)
-{
-    int letterPos;
-    int index;
-    int length = strlen(word);
-    char letter;
-
-    struct TrieNode* runner = root;
-
-    for(letterPos=0; letterPos<length; letterPos++)
-    {
-        letter = word[letterPos];
-        letter = tolower(letter);
-        index = letter-'a';
-
-        if(runner->children[index]==NULL)
-            return false;
-        
-        runner = runner->children[index];
-    }
-
-    return (runner != NULL && runner->isEndOfWord);
-}
-
 void display(struct TrieNode* root, char* word, int level, char **arr, int arrIndex, int *freqArr)
 {
     if(root->isEndOfWord)
     {
         int j = 0;
         word[level] = '\0';
-        while(freqArr[j]!=0){
+        while(freqArr[j]!=0){       //find next free spot, not very elegant
             j++;
         }
         freqArr[j] = root->freq;
         strcpy(arr[j], word);              
     }
-    
 
     int i;
     for(i=0; i<ALPHABET_SIZE; i++)
@@ -134,9 +100,7 @@ bool freeSpace(struct TrieNode *root)
 }
 
 int main(int argc, char **argv) 
-
 { 
-   
     bool reverse;
     if(argc==2)
     {
@@ -144,10 +108,6 @@ int main(int argc, char **argv)
         reverse=true;
 
     }
-   
-        
-    
- 
 
     struct TrieNode *root = newNode(); 
   
@@ -171,9 +131,6 @@ int main(int argc, char **argv)
     arrOfWords = (char**)malloc(numOfWords*sizeof(char*));
     for(i=0; i<numOfWords; i++)
         arrOfWords[i] = malloc(MAX_WORD_SIZE*sizeof(char));
-   
-
-    
    
 
     int level = 0;
@@ -210,10 +167,7 @@ int main(int argc, char **argv)
     
     free(arrOfWords);
 
-    freeSpace(root);
-
-
-    
+    freeSpace(root);   
   
     return 0;
 } 
