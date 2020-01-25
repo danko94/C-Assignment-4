@@ -146,7 +146,7 @@ int main(int argc, char **argv)
         {
             if(arrOfFreq[i]==0)
                 continue;
-            printf("%s\t", arrOfWords[i]);
+            printf("%s  ", arrOfWords[i]);
             printf("%d\n", arrOfFreq[i]);
         }
     }
