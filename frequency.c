@@ -101,7 +101,7 @@ bool freeSpace(struct TrieNode *root)
 
 int main(int argc, char **argv) 
 { 
-    bool reverse;
+    bool reverse=false;
     if(argc==2)
     {
         if(!strncmp(argv[1], "r", 1))
